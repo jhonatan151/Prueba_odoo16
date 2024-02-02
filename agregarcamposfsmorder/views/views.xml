@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <!-- Vista extendida para la orden de servicio -->
+        <record id="view_custom_service_order_form" model="ir.ui.view">
+            <field name="name">custom.service.order.form</field>
+            <field name="model">fsm.order</field>
+            <field name="inherit_id" ref="fieldservice.fsm_order_form"/>
+            <field name="arch" type="xml">
+                <notebook position="inside">
+                    <!-- Nueva página para solicitar materiales -->
+                    <page string="Materiales" name="materials_page">
+                        <field name="material_requests" widget="many2many_list" context="{'default_order_id': active_id}">
+                            <tree create="true" delete="true" editable="bottom">
+                                <field name="product_id" widget="many2many_list" options="{'no_create': True}" domain="[('type','=','product')]"/>
+                                <field name="quantity"/>
+                                <field name="uom_id"/>
+                            </tree>
+                        </field>
+                    </page>
+                </notebook>
+            </field>
+        </record>
+    </data>
+</odoo>

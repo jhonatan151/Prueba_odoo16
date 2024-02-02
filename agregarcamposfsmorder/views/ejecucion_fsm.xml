@@ -1,0 +1,53 @@
+<odoo>
+    <data>
+        <record id="view_fsm_order_execution_inherit" model="ir.ui.view">
+            <field name="name">custom.module.fsm.order.execution</field>
+            <field name="model">fsm.order</field>
+            <field name="inherit_id" ref="fieldservice.fsm_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//notebook/page[@name='execution_page']/group" position="before">
+                    <group id="exect">
+                        <field name="tecexecution" string="¿El servicio se puede realizar inmediatamente?"/>
+                    </group>
+                </xpath>
+                <xpath expr="//notebook/page[@name='execution_page']" position="inside">
+                    <group id="activities" string="Actividades">
+                      <field name="order_activity_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="sequence" widget="handle"/>
+                            <field name="name" string="Nombre"/>
+                            <field name="required" string="Requerido"/>
+                            <field name="ref" string="referencia"/>
+                            <field name="completed" invisible="1"/>
+                            <field name="completed_on" string="Completado el"/>
+                            <field name="completed_by" string="Completado por"/>
+                            <button name="action_done" string="Complete" type="object" class="oe_highlight" attrs="{'invisible': [('state', 'not in', ['todo'])]}"/>
+                            <button name="action_cancel" string="Cancel" type="object" attrs="{'invisible': [('state', 'not in', ['todo'])]}"/>
+                            <field name="state" string="Estado" readonly="1"/>
+                        </tree>
+                      </field>
+                    </group>
+                    <group id="resolucion" string="Observaciones">
+                        <field name="resolution" string="Indique la solucion realizada"/>
+                    </group>
+                    <group string=" ">
+                        <field name="datos_personales" invisible="1"/>
+                        <button name="aceptacion_datos" id="data_personal" type="object" string="Habilitar firma" class="btn btn-primary" confirm="AUTORIZACIÓN DE DATOS PERSONALES                                 De acuerdo al Decreto 2364 de 2012 por medio del cual se reglamenta el artículo 7° de la Ley 527 de 1999                                 sobre la firma electrónica y se dictan otras disposiciones y la Ley 1581 de 2012 y sus Decretos                                 Reglamentarios sobre la Protección de Datos Personales, mediante el registro de sus datos personales                                 en el presente formulario usted autoriza a la compañía ALL SERVICE RHYNO S.A.S, para la recolección,                                 almacenamiento y uso de los mismos con la finalidad de tener un soporte de los servicios prestados                                 por el personal técnico de nuestra compañía y                                 En caso de requerir ejercitar su derecho de acceso, rectificación, supresión, revocación o reclamo puede escribir                                 al correo electrónico: proteccion.datos@allser.com.co ó comunicarse con nuestro PBX 601-6534960,                                 en el horario de Lunes a Viernes de 8:00 a.m. a 5:00 p.m.                                 donde el personal asignado dará respuesta y solución oportuna a su requerimiento." attrs="{'invisible': [('datos_personales', '!=', False)]}"/>
+                    </group>
+                    <group string="Firma" id="Firma_grupo" attrs="{'invisible': [('datos_personales', '!=', True)]}">
+                        <field name="firma" widget="signature" class="w-100"/>
+                        <field name="q_firma"/>
+                        <field name="cc_q_firma"/>
+                        <br/>
+                    </group>
+                    <group string="Firma tecnico" id="Firma_grupo" attrs="{'invisible': [('datos_personales', '!=', True)]}">
+                        <field name="firma2" widget="signature" class="w-100"/>
+                        <field name="q_firma2"/>
+                        <field name="cc_q_firma2"/>
+                        <br/>
+                    </group>
+                </xpath>
+            </field>
+        </record>
+    </data>
+</odoo>

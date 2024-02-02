@@ -1,0 +1,194 @@
+<?xml version="1.0"?>
+<t t-name="fieldservice.report_fsm_order">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="fieldservice.report_fsm_order_document"/>
+            </t>
+        </t>
+    </t>
+
+<!--codigo actual y funcional-->
+<?xml version="1.0"?>
+<t t-name="fieldservice.report_fsm_order">
+    <t t-call="web.external_layout">
+        <t t-foreach="docs" t-as="doc">
+            <div class="page">
+                <main>
+                    <h2 style="font-weight: bold; font-size: 24px;">Orden: <span t-field="doc.name"/></h2>
+                    <h3 style="font-size: 15px;">Tipo de Sistema: <span t-field="doc.tipo_sistema"/></h3>
+                    <h3 style="font-size: 15px;">Tipo de Unidad: <span t-field="doc.tipo_unidad"/></h3>
+                    <h3 style="font-size: 15px;">Tecnico: <span t-field="doc.person_id.name"/></h3>
+                    <h3 style="font-size: 15px;">Compañia: <span t-field="doc.company_id.name"/></h3>
+
+                    <h3 style="font-weight: bold; margin-top: 22px; font-size: 26px">Fecha y Hora</h3>
+                    <p>Fecha de Inicio: <span t-field="doc.date_start"/></p>
+                    <p>Fecha de Fin: <span t-field="doc.date_end"/></p>
+
+                    <h3 style="font-weight: bold; font-size: 26px">Descripcion General</h3>
+                    <p><span t-field="doc.description"/></p>
+
+
+                    <h3 style="font-weight: bold; font-size: 24px">Resolucion</h3>
+                    <p><span t-field="doc.resolution"/></p>
+
+
+                    <h3 style="font-weight: bold; font-size: 24px">Materiales</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #afde1d;">Producto</th>
+                                <th style="background-color: #afde1d;">Cantidad</th>
+                                <th style="background-color: #afde1d;">Unidad de Medida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.material_requests" t-as="material">
+                                <tr>
+                                    <td><span t-field="material.product_id.name"/></td>
+                                    <td><span t-field="material.quantity"/></td>
+                                    <td><span t-field="material.uom_id.name"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3 style="font-weight: bold; font-size: 24px">Actividades</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #afde1d;">Nombre</th>
+                                <th style="background-color: #afde1d;">Referencia</th>
+                                <th style="background-color: #afde1d;">Completado el</th>
+                                <th style="background-color: #afde1d;">Completado por</th>
+                                <th style="background-color: #afde1d;">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.order_activity_ids" t-as="activity">
+                                <tr>
+                                    <td><span t-field="activity.name"/></td>
+                                    <td><span t-field="activity.ref"/></td>
+                                    <td><span t-field="activity.completed_on"/></td>
+                                    <td><span t-field="activity.completed_by"/></td>
+                                    <td><span t-field="activity.state"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <div style="margin-top: 26px;" class="row">
+                        <div class="col-6">
+                            <h3 style="font-weight: bold; font-size: 24px">Firma Analista</h3>
+                            <div class="signature">
+                                <img t-if="doc.firma" t-att-src="image_data_uri(doc.firma)" style="max-height: 4cm; max-width: 8cm;"/>
+                            </div>
+                            <p>Nombre: <span t-field="doc.q_firma"/></p>
+                            <p>CC: <span t-field="doc.cc_q_firma"/></p>
+                        </div>
+                        <div class="col-6">
+                            <h3 style="font-weight: bold; font-size: 24px">Firma Tecnico</h3>
+                            <div class="signature">
+                                <img t-if="doc.firma2" t-att-src="image_data_uri(doc.firma2)" style="max-height: 4cm; max-width: 8cm;"/>
+                            </div>
+                            <p>Nombre: <span t-field="doc.q_firma2"/></p>
+                            <p>CC: <span t-field="doc.cc_q_firma2"/></p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </t>
+    </t>
+</t>
+
+<!--codigo con codificaciones de orden-->
+<?xml version="1.0"?>
+<t t-name="fieldservice.report_fsm_order">
+    <t t-call="web.external_layout">
+        <t t-foreach="docs" t-as="doc">
+            <div class="page">
+                <h2 style="font-size: 15px;">Buenos dias señor <span t-field="doc.q_firma" style="color: inherit;"/></h2>
+                <main>
+                    <h2 style="font-weight: bold; font-size: 16px;">No Orden: <span t-field="doc.name"/></h2>
+
+                    <h3 style="font-weight: bold; margin-top: 22px; font-size: 22px">Fecha y Hora</h3>
+                    <p>Fecha de Inicio: <span t-field="doc.date_start"/></p>
+                    <p>Fecha de Fin: <span t-field="doc.date_end"/></p>
+
+                    <h3 style="font-weight: bold; font-size: 26px">Descripcion General</h3>
+                    <p><span t-field="doc.description"/></p>
+
+                    <h3 style="font-size: 15px;;">Tipo de Sistema: <span t-field="doc.tipo_sistema"/></h3>
+                    <h3 style="font-size: 15px;">Tipo de Unidad: <span t-field="doc.tipo_unidad"/></h3>
+                    <h3 style="font-size: 15px;">Tecnico: <span t-field="doc.person_id.name"/></h3>
+                    <h3 style="font-size: 15px;">Compañia: <span t-field="doc.company_id.name"/></h3>
+
+                    <h3 style="font-weight: bold; font-size: 24px; margin-top: 26px;">Materiales</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #afde1d;">Producto</th>
+                                <th style="background-color: #afde1d;">Cantidad</th>
+                                <th style="background-color: #afde1d;">Unidad de Medida</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.material_requests" t-as="material">
+                                <tr>
+                                    <td><span t-field="material.product_id.name"/></td>
+                                    <td><span t-field="material.quantity"/></td>
+                                    <td><span t-field="material.uom_id.name"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3 style="font-weight: bold; font-size: 24px; margin-top: 26px;">Actividades</h3>
+                    <table class="table table-sm o_main_table">
+                        <thead>
+                            <tr>
+                                <th style="background-color: #afde1d;">Nombre</th>
+                                <th style="background-color: #afde1d;">Referencia</th>
+                                <th style="background-color: #afde1d;">Completado el</th>
+                                <th style="background-color: #afde1d;">Completado por</th>
+                                <th style="background-color: #afde1d;">Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-foreach="doc.order_activity_ids" t-as="activity">
+                                <tr>
+                                    <td><span t-field="activity.name"/></td>
+                                    <td><span t-field="activity.ref"/></td>
+                                    <td><span t-field="activity.completed_on"/></td>
+                                    <td><span t-field="activity.completed_by"/></td>
+                                    <td><span t-field="activity.state"/></td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+
+                    <h3 style="font-weight: bold; font-size: 24px; margin-top: 26px;">Resolucion</h3>
+                    <p><span t-field="doc.resolution"/></p>
+
+                    <div style="margin-top: 38px;" class="row">
+                        <div class="col-6">
+                            <h3 style="font-weight: bold; font-size: 24px">Firma Analista</h3>
+                            <div class="signature">
+                                <img t-if="doc.firma" t-att-src="image_data_uri(doc.firma)" style="max-height: 4cm; max-width: 8cm;"/>
+                            </div>
+                            <p>Nombre: <span t-field="doc.q_firma"/></p>
+                            <p>CC: <span t-field="doc.cc_q_firma"/></p>
+                        </div>
+                        <div class="col-6">
+                            <h3 style="font-weight: bold; font-size: 24px">Firma Tecnico</h3>
+                            <div class="signature">
+                                <img t-if="doc.firma2" t-att-src="image_data_uri(doc.firma2)" style="max-height: 4cm; max-width: 8cm;"/>
+                            </div>
+                            <p>Nombre: <span t-field="doc.q_firma2"/></p>
+                            <p>CC: <span t-field="doc.cc_q_firma2"/></p>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </t>
+    </t>
+</t>
